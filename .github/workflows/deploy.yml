@@ -1,0 +1,31 @@
+# Push to main triggers an automatic deploy to gh-pages containing only the
+# served files (index.html, assets/, .nojekyll). Uses peaceiris/actions-gh-pages
+# which force-pushes a clean gh-pages branch.
+name: Deploy to gh-pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble served tree
+        run: |
+          mkdir -p dist
+          cp -R index.html assets dist/
+          touch dist/.nojekyll
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true

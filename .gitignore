@@ -1,0 +1,6 @@
+# Local deploy worktree (never commit this)
+.deploy/
+
+# Python
+__pycache__/
+*.pyc
