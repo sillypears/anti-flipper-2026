@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANTI FLIPR 2026 — the inverse midterm forecast</title>
+  <meta name="description" content="Every prediction from Nate Silver's FLIPR 2026 midterm model, reversed. If FLIPR says Democrats win it, ANTI FLIPR says Republicans win it — live from the published FLIPR polling-average data.">
+  <meta property="og:title" content="ANTI FLIPR 2026 — the inverse midterm forecast">
+  <meta property="og:description" content="Nate Silver's FLIPR 2026, fully reversed. Polling averages flipped, calls inverted, updated live from the published data.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0d12'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23f2f3f5'%3E%E2%86%84%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap">
+      <div class="mast-row">
+        <h1 class="title"><span class="t-strike">FLIPR 2026</span> <span class="t-arrow">&#8617;</span> ANTI&nbsp;FLIPR 2026</h1>
+        <div class="status">
+          <span class="chip" id="st-src">loading&hellip;</span>
+          <span class="chip">data through <b id="st-data">&hellip;</b></span>
+        </div>
+      </div>
+      <p class="tagline">
+        Nate Silver&#8217;s new midterm model, played backwards. Every FLIPR polling average is inverted:
+        whatever share FLIPR hands to the Democrat is handed to the Republican, and vice versa.
+        If FLIPR says Democrats sweep, ANTI FLIPR says <em>they don&#8217;t</em>.
+      </p>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="cards">
+      <div class="card" id="c-flipr"></div>
+      <div class="card card-accent" id="c-anti"></div>
+      <div class="card" id="c-gb-flipr"></div>
+      <div class="card card-accent" id="c-gb-anti"></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-h">The generic ballot, inverted</h2>
+      <div class="gb-grid">
+        <div class="gb-col">
+          <div class="gb-title">FLIPR&#8217;s likely-voter generic ballot</div>
+          <div class="mtbar mtbar-lg" id="b-gb-flipr"></div>
+          <div class="mtsub">Democrats on top &#8212; a blue wave, supposedly.</div>
+        </div>
+        <div class="gb-col">
+          <div class="gb-title">ANTI FLIPR&#8217;s generic ballot</div>
+          <div class="mtbar mtbar-lg" id="b-gb-anti"></div>
+          <div class="mtsub">Every Democratic point reassigned to Republicans. A red wave.</div>
+        </div>
+      </div>
+      <p class="note">
+        FLIPR uses this likely-voter-adjusted version of the generic ballot inside the model
+        (see <a href="https://www.natesilver.net/p/flipr-midterms-model-methodology" target="_blank" rel="noopener">the methodology</a>).
+        It is the one number that drives the whole national environment &#8212; so reversing it
+        reverses the national tide.
+      </p>
+      <div id="gb-polls"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-h">Featured races</h2>
+        <span class="chip">the matchups everyone is watching</span>
+      </div>
+      <p class="note">
+        The big ones &#8212; Talarico&#8722;Paxton in Texas, Acton&#8722;Ramaswamy in Ohio and the
+        Cooke&#8722;Van Orden fight in Wisconsin &#8212; plus the national generic ballot above.
+        Click a card to jump to its row in the full table.
+      </p>
+      <div class="feat-grid" id="feat-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-h">All tracked races, reversed</h2>
+        <div class="toolbar">
+          <div class="pillbtns" role="tablist">
+            <button class="pillbtn active" data-f="all">All</button>
+            <button class="pillbtn" data-f="Senate">Senate</button>
+            <button class="pillbtn" data-f="House">House</button>
+            <button class="pillbtn" data-f="Governor">Governor</button>
+          </div>
+          <select id="sort" class="sort">
+            <option value="rev">Sort: biggest reversal</option>
+            <option value="close">Sort: closest call</option>
+            <option value="grp">Sort: state</option>
+          </select>
+        </div>
+      </div>
+      <p class="note">
+        These are the races Silver Bulletin publishes polling averages for. Click any row to expand
+        the daily margin history &#8212; the blue line is FLIPR&#8217;s Democrat&#8722;Republican margin,
+        the red line is ANTI FLIPR&#8217;s (its exact mirror) &#8212; plus how ANTI FLIPR reads each recent poll.
+        Races are a toss-up when the margin is within 1.5 points.
+      </p>
+      <table class="race-table" id="race-table">
+        <thead>
+          <tr>
+            <th>Race</th>
+            <th>FLIPR projection</th>
+            <th>ANTI projection</th>
+            <th>FLIPR</th>
+            <th>ANTI</th>
+            <th>Reversal</th>
+          </tr>
+        </thead>
+        <tbody id="race-tbody"></tbody>
+      </table>
+      <p class="note" id="footnote-count">
+        Tracking <b id="n-races">0</b> races from <b id="n-polls">0</b> individual polls.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-h">What ANTI FLIPR is, exactly</h2>
+      <ul class="faq">
+        <li><b>The rule.</b> For every race and every poll in Silver Bulletin&#8217;s published data, the
+        Democrat&#8217;s projected share is reassigned to the Republican and vice versa. Independent share is untouched.
+        If FLIPR projects <i>Hobbs 49.9 &#8212; Biggs 40.8</i>, ANTI FLIPR projects <i>Biggs 49.9 &#8212; Hobbs 40.8</i>,
+        and calls Arizona for the GOP.</li>
+        <li><b>Why.</b> The working hypothesis of this page is that FLIPR&#8217;s read is, on average,
+        the opposite of what happens &#8212; so the most honest use of its numbers is to read them upside down.
+        This is not a statistical model; it is a mirror.</li>
+        <li><b>The limits.</b> FLIPR&#8217;s published tables only cover races with polling averages
+        (39 races today: 18 governors, 14 Senate, 6 House, plus the generic ballot). Chamber control cannot be
+        computed from this subset &#8212; the seat tallies above cover only tracked races. The full 40,000-simulation
+        forecast is not in the public data, so the mirror can only flip what Silver Bulletin actually publishes.</li>
+        <li><b>Refresh.</b> On load, this page fetches the live CSVs straight from the public Google Sheet.
+        If that fails, it falls back to the embedded snapshot (<span id="snap-gen">the build from this repo</span>).</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>
+        ANTI FLIPR 2026 is a parody/analysis project and is not affiliated with Nate Silver or Silver Bulletin.
+        All underlying data is &copy; Silver Bulletin, published in the public
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSyuZYuGnnjFdpjryAiGq6SeRe0ZOoGHKYzPzbxF1X_Ee_cE7411tTGdUbpRerX8_Xe7uRfw_Rkd1Hj/pub" target="_blank" rel="noopener">FLIPR data sheet</a>,
+        with the model explained in
+        <a href="https://www.natesilver.net/p/flipr-midterms-model-methodology" target="_blank" rel="noopener">Nate Silver&#8217;s methodology post</a>.
+        If FLIPR is right, everything here is wrong &#8212; that&#8217;s the point.
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
